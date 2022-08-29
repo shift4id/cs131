@@ -1,0 +1,12 @@
+    1  passwd
+    2  cls
+    3  passwd
+    4  ls
+    5  cd ..
+    6  ls
+    7  cd siddharth
+    8  ls
+    9  git
+   10  mkdir cs131
+   11  cd cs131
+   12  history > cmds.log
