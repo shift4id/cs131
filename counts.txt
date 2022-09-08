@@ -1,0 +1,3 @@
+type line_count word_count character_count
+verified 229346 44402864 262428121
+unverified 2876174 505766888 2976274217

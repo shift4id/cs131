@@ -1,0 +1,152 @@
+    1  passwd
+    2  cls
+    3  passwd
+    4  ls
+    5  cd ..
+    6  ls
+    7  cd siddharth
+    8  ls
+    9  git
+   10  mkdir cs131
+   11  cd cs131
+   12  history > cmds.log
+   13  ls
+   14  git login
+   15  git help
+   16  git add -a
+   17  git init
+   18  git commit -am 'Add command history'
+   19  git config user.email 'hi@sid.fyi'
+   20  git config user.name "Siddharth Adusumelli"
+   21  git commit -am 'Add command history'
+   22  git add cmds.log
+   23  git commit -m 'Add cmds.log'
+   24  git branch
+   25  git checkout -b ws1
+   26  git branch
+   27  git remote add origin https://github.com/shift4id/cs131.git
+   28  git push -u origin master
+   29  git remote add origin https://github.com/shift4id/cs131.git
+   30  git push -u origin master
+   31  gh auth login
+   32  git push -u origin master
+   33  git push -u origin ws1
+   34  git push -u origin master
+   35  ls
+   36  cd cs131
+   37  gl
+   38  git pull
+   39  git branch
+   40  git branch -b ws2
+   41  git branch ws2 -b
+   42  git branch ws2
+   43  ls
+   44  rm -rf cmds.log
+   45  cls
+   46  ls
+   47  clear
+   48  wget    https://s3.amazonaws.com/amazon-reviews-pds/tsv/amazon_reviews_us_Books_v1_02.tsv.gz
+   49  git branch
+   50  git checkout ws2
+   51  ls
+   52  git commit -am 'Add amazon dataset'
+   53  git branch
+   54  git checkout ws1
+   55  ls
+   56  git reset
+   57  ls
+   58  git reset --hard HEAD
+   59  ls
+   60  git checkout ws2
+   61  ls
+   62  git add amazon_review_us_Books_v1_02.tsv.gz
+   63  git add ./amazon_review_us_Books_v1_02.tsv.gz
+   64  ls
+   65  git add -a
+   66  git add -A
+   67  cls
+   68  clear
+   69  q
+   70  quit
+   71  ls
+   72  cd cs131
+   73  ls
+   74  git branch --list
+   75  git branch delete
+   76  git branch --list
+   77  git help
+   78  git help branch
+   79  git branch -d delete
+   80  git branch -d ws2
+   81  gco ws1
+   82  git checkout ws1
+   83  git branch -d ws2
+   84  git branch -D ws2
+   85  git checkout --orphan ws2
+   86  wget    https://s3.amazonaws.com/amazon-reviews-pds/tsv/amazon_reviews_us_Books_v1_02.tsv.gz
+   87  ls
+   88  rm -rf amazon_reviews_usBooks_v1_02.tsv.gz.1
+   89  ls
+   90  rm -r ./
+   91  cd ..
+   92  rm -r cs131
+   93  cls
+   94  rm -rf cs131
+   95  ls
+   96  git clone https://github.com/shift4id/cs131
+   97  ls
+   98  cd cs131
+   99  ls
+  100  git branch --list
+  101  git pull
+  102  git checkout ws1
+  103  ls
+  104  git checkout ws1
+  105  ls
+  106  git checkout --orphan ws2
+  107  ls
+  108  rm -r cmds.log
+  109  ls
+  110  wget    https://s3.amazonaws.com/amazon-reviews-pds/tsv/amazon_reviews_us_Books_v1_02.tsv.gz
+  111  git checkout ws1
+  112  git branch --delete ws2
+  113  git branch -d ws2
+  114  git branch -D ws2
+  115  git branch --list
+  116  ls
+  117  cd cs131
+  118  ls
+  119  git checkout --orphan ws2
+  120  git rm -rf .
+  121  ls
+  122  git commit -a -m "Add zipped dataset"
+  123  git login
+  124  git config --global user.email "hi@sid.fyi"
+  125  git config --global user.name "Siddharth Adusumelli"
+  126  git commit -a -m "Add zipped dataset"
+  127  git add amazon_review_us_Books_v1_02.tsv.gz
+  128  tar -xf amazon_reviews_us_Books_v1_02.tsv.gz
+  129  gunzip amazon_reviews_us_Books_vw_02.tsv.gz
+  130  gunzip ./amazon_reviews_us_Books_vw_02.tsv.gz
+  131  ls
+  132  rm -r amazon_reviews_us_Books_v1_02.tsv.gz
+  133  ls
+  134  git branch
+  135  cd cs 131
+  136  cd cs131
+  137  git branch
+  138  git checkout --orphan ws2
+  139  ls
+  140  wget    https://s3.amazonaws.com/amazon-reviews-pds/tsv/amazon_reviews_us_Books_v1_02.tsv.gz
+  141  ls
+  142  gunzip amazon_reviews_us_Books_v1_02.tsv.gz
+  143  ls
+  144  head amazon_reviews_us_Books_v1_02.tsv
+  145  grep -p '\t(N|Y)\tY\t' amazon_reviews_us_Books_v1_02.tsv | wc
+  146  grep -P '\t(N|Y)\tY\t' amazon_reviews_us_Books_v1_02.tsv | wc
+  147  grep -P '\t(N|Y)\tY\t' amazon_reviews_us_Books_v1_02.tsv | wc > counts.txt
+  148  grep -P '\t(N|Y)\tN\t' amazon_reviews_us_Books_v1_02.tsv | wc >> counts.txt
+  149  vi counts.txt
+  150  nano counts.txt
+  151  head counts.txt
+  152  history > cmds.log
