@@ -1,0 +1,33 @@
+1) Sort the customer IDs in order to find the customer who authored the most reviews. Which customers are the top 3 reviewers (with the most reviews)?
+
+Command:
+cat amazon_reviews_us_Books_v1_02.tsv | cut -f2 | sort | uniq -c | sort -rnb | head -3
+
+Output (number of reviews, customer id):
+ 21922 50122160
+   9964 50732546
+   2664 52615377
+
+2) Sort the products in order to find the product that has the most reviews. What are the top 3 most reviewed products?
+
+Command:
+cat amazon_reviews_us_Books_v1_02.tsv | cut -f4 | sort | uniq -c | sort -rnb | head -3
+
+Output (number of reviews, product id):
+   4625 043935806X
+   3739 0439139597
+   2666 0525947647
+
+
+Script started on 2022-09-14 18:49:52-04:00
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat amazon_reviews_us_Books_v1_02.tsv | cut -f2 | sort | uniq -c | sort -rnb | head -3
+  21922 50122160
+   9964 50732546
+   2664 52615377
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat amazon_reviews_us_Books_v1_02.tsv | cut -f4 | sort | uniq -c | sort -rnb | head -3
+   4625 043935806X
+   3739 0439139597
+   2666 0525947647
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ exit
+
+Script done on 2022-09-14 18:51:40-04:00
