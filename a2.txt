@@ -1,0 +1,358 @@
+0. The twitter files have tweet text broken over many lines due to "\n" newlines (also called linefeeds or lfs) the user pressed (check it out with vi). Describe why MS-excel doesn't get confused by the newlines and displays the tweet text in a single row. Describe in a few sentences how you would remove the newlines from the text field (the professor already did this for you, so you should actually use downloaded_tweets_extend_nolf.csv and downloaded_tweets_extend_original_nolf.csv).
+Excel knows how to handle the file and understands that each field is separated by commas and strings for one field are wrapped in quotation marks meaning that commas within will be ignored. Bash gets confused because it just is displaying the text so it treats the newlines as newlines regardless of whether it is wrapped in quotes or not.
+
+1. Find the top 10 users who replied the most to other users (downloaded_tweets_extend_original_nolf.csv)
+Command:
+cat downloaded_tweets_extend_original_nolf.tsv | grep "type=replied_to" | cut -f2 | sort | uniq -c | sort -rnb | head -10
+
+Output:
+    106 380648579
+    104 18831926
+     83 16050065
+     46 117810351
+     45 1240682348120860000
+     35 1094971056358630000
+     34 140496030
+     34 1387010761994680000
+     32 172323296
+     19 1573800344
+
+2. Find the top 10 users who got the most replies from other users (downloaded_tweets_extend_original_nolf.csv)
+Command:
+cat downloaded_tweets_extend_original_nolf.tsv | grep "type=replied_to" | cut -f6 | sort | uniq -c | sort -rnb | head -10
+
+Output:
+    112 18831926
+    107 380648579
+     83 16050065
+     48 117810351
+     45 3453306553
+     37 1094971056358630000
+     34 140496030
+     32 172323296
+     30 29447428
+     30 1240682348120860000
+
+3. Find the top 10 users who retweeted the most other tweets (downloaded_tweets_extend_nolf.csv)
+Command:
+cat downloaded_tweets_extend_nolf.tsv | grep "type=retweeted" | cut -f2 | sort | uniq -c | sort -rnb | head -10
+Output:
+   2065 45379403
+   1678 77726331
+   1641 870244616003403000
+   1582 1028022611324740000
+   1312 711608180535640000
+   1281 139109800
+   1234 177400353
+   1216 832019161454817000
+   1159 29447428
+   1139 1060440219097420000
+
+4. Find the top 10 users who got retweeted the most from other users (for this you need both files above, use fgrep)
+Question moved to assignment 4
+
+5. Find the 30 hashtags used most frequently overall for anything (downloaded_tweets_extend_nolf.csv)
+Command:
+cat downloaded_tweets_extend_original_nolf.tsv | cut -f4 | sort | uniq -c | sort -rnb | head -30
+
+Output:
+    978 Ukraine
+    740 LongCovid
+    723 auspol
+    574 COVID19
+    311 StandWithUkraine
+    267 PMQs
+    249 BREAKING
+    183 ableg
+    175 cdnpoli
+    173 Russia
+    139 "Russia,Ukraine"
+    124 Omicron
+    118 onpoli
+    118 OneOfUsAllOfUs
+    111 COVIDisAirborne
+    107 insiders
+     98 SOTU
+     93 Brexit
+     90 bcpoli
+     89 COVID
+     88 Kyiv
+     88 ChefsForUkraine
+     84 "Ukraine,Russia"
+     84 RepublicanTTTTTTPredators
+     84 Mariupol
+     82 "เจ้าแก้มก้อน,fluke_natouch"
+     79 Partygate
+     79 DemVoice1
+     75 CovidIsNotOver
+     74 longcovid
+
+6. Find the 30 hashtags that got retweeted the most (downloaded_tweets_extend_nolf.csv)
+Command:
+cat downloaded_tweets_extend_nolf.tsv | grep "type=retweeted" | cut -f4 | sort | uniq -c | sort -rnb | head -30
+
+Output:
+  20641 
+   1165 Ukraine
+    811 LongCovid
+    782 COVID19
+    304 BREAKING
+    301 Russia
+    197 auspol
+    166 PMQs
+    161 Omicron
+    161 Mariupol
+    133 Kyiv
+    132 StandWithUkraine
+    131 BA2
+    118 "Russia,Ukraine"
+    112 COVID
+     97 Covid19
+     93 Russian
+     84 longcovid
+     78 COVIDisAirborne
+     76 Partygate
+     74 MitchPlease
+     72 "Ukraine,Russia"
+     72 Brexit
+     70 UPDATE
+     67 SOTU
+     66 insiders
+     65 Putin
+     64 covid19
+     61 Ukrainian
+     61 Oscars
+
+7. Find the 30 hashtags that got replied the most (downloaded_tweets_extend_nolf.csv)
+Command:
+cat downloaded_tweets_extend_nolf.tsv | grep "type=replied_to" | cut -f4 | sort | uniq -c | sort -rnb | head -30
+
+Output:
+    832 "FBPE,FollowBackFriday"
+    106 COVID19
+    106 BoycottATP
+    105 "PutinHitler,StandWithUkraine,PutinHitler,PutinWarCriminal,StopPutinNOW,RussiaSanctions,BoycottRussia"
+     69 ClimateCrisis
+     50 "J6T,J6TraitorSaysWhat"
+     49 LongCovid
+     42 Ottawa
+     35 DowningStreetParties
+     31 Ukraine
+     29 N95
+     27 TEAMMOLLY
+     26 btc
+     25 Putin
+     21 "FBPE,FBPPR,FollowBackFriday"
+     19 TrumpGQPdeathKKKult
+     19 COVIDisAirborne
+     18 StandWithUkraine
+     18 RejoinEU
+     18 CrazyTown
+     17 VaccineSideEffects
+     16 ClimateEmergency
+     15 ToyFair2022
+     15 "FBPE,FollowBackFriday,TakeBackDemocracy"
+     15 FAFO
+     15 "bcpoli,bced"
+     14 ScottytheFailure
+     14 "COVID19BC,bcpoli"
+     13 "PutinHitler,StandWithUkraine"
+     13 MLKDay
+
+8. Find the 30 hashtags that got quoted the most (downloaded_tweets_extend_nolf.csv)
+Command:
+cat downloaded_tweets_extend_nolf.tsv | grep "type=quoted" | cut -f4 | sort | uniq -c | sort -rnb | head -30
+
+Output:
+     28 COVID19
+     25 HousingCrisis
+     23 Ukraine
+     20 JimCrowGOP
+     20 COVID19AB
+     20 "BDS,FreePalestine"
+     16 VaccineSideEffects
+     16 ClimateCrisis
+     15 Putin
+     15 "ableg,covid19ab"
+     14 TrumpGQPdeathKKKult
+     14 Antisemitism
+     13 RipCity
+     12 MaskItOrCasket
+     12 ChefsForUkraine
+     12 ableg
+     10 VITT
+     10 SocialismOrBarbarism
+     10 Russia
+     10 "ableg,COVID19AB"
+     10 "ableg,abed,covid19ab"
+      9 StandWithUkraine
+      9 MLKDay
+      9 "ableg,abed,COVID19AB"
+      8 "NAZI,UKRAINE"
+      8 LongCovid
+      8 FreePalestine
+      8 CrazyTown
+      8 AbolishPolice
+      7 TheView
+
+Script started on 2022-09-25 18:33:55-04:00
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat downloaded_tweets_extend_original_nolf.tsv | grep "type=replied_to" | cut -f2 | sort | uniq -c | sort -rnb | head -10
+    106 380648579
+    104 18831926
+     83 16050065
+     46 117810351
+     45 1240682348120860000
+     35 1094971056358630000
+     34 140496030
+     34 1387010761994680000
+     32 172323296
+     19 1573800344
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat downloaded_tweets_extend_original_nolf.tsv | grep "type=replied_to" | cut -f6 | sort | uniq -c | sort -rnb | head -10
+    112 18831926
+    107 380648579
+     83 16050065
+     48 117810351
+     45 3453306553
+     37 1094971056358630000
+     34 140496030
+     32 172323296
+     30 29447428
+     30 1240682348120860000
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat downloaded_tweets_extend_nolf.tsv | grep "type=retweeted" | cut -f2 | sort | uniq -c | sort -rnb | head -10
+   2065 45379403
+   1678 77726331
+   1641 870244616003403000
+   1582 1028022611324740000
+   1312 711608180535640000
+   1281 139109800
+   1234 177400353
+   1216 832019161454817000
+   1159 29447428
+   1139 1060440219097420000
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat downloaded_tweets_extend_original_nolf.tsv | cut -f4 | sort | uniq -c | sort -rnb | head -30
+    978 Ukraine
+    740 LongCovid
+    723 auspol
+    574 COVID19
+    311 StandWithUkraine
+    267 PMQs
+    249 BREAKING
+    183 ableg
+    175 cdnpoli
+    173 Russia
+    139 "Russia,Ukraine"
+    124 Omicron
+    118 onpoli
+    118 OneOfUsAllOfUs
+    111 COVIDisAirborne
+    107 insiders
+     98 SOTU
+     93 Brexit
+     90 bcpoli
+     89 COVID
+     88 Kyiv
+     88 ChefsForUkraine
+     84 "Ukraine,Russia"
+     84 RepublicanTTTTTTPredators
+     84 Mariupol
+     82 "เจ้าแก้มก้อน,fluke_natouch"
+     79 Partygate
+     79 DemVoice1
+     75 CovidIsNotOver
+     74 longcovid
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat downloaded_tweets_extend_nolf.tsv | grep "type=retweeted" | cut -f4 | sort | uniq -c | sort -rnb | head -30
+  20641 
+   1165 Ukraine
+    811 LongCovid
+    782 COVID19
+    304 BREAKING
+    301 Russia
+    197 auspol
+    166 PMQs
+    161 Omicron
+    161 Mariupol
+    133 Kyiv
+    132 StandWithUkraine
+    131 BA2
+    118 "Russia,Ukraine"
+    112 COVID
+     97 Covid19
+     93 Russian
+     84 longcovid
+     78 COVIDisAirborne
+     76 Partygate
+     74 MitchPlease
+     72 "Ukraine,Russia"
+     72 Brexit
+     70 UPDATE
+     67 SOTU
+     66 insiders
+     65 Putin
+     64 covid19
+     61 Ukrainian
+     61 Oscars
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat downloaded_tweets_extend_nolf.tsv | grep "type=replied_to" | cut -f4 | sort | uniq -c | sort -rnb | head -30
+    832 "FBPE,FollowBackFriday"
+    106 COVID19
+    106 BoycottATP
+    105 "PutinHitler,StandWithUkraine,PutinHitler,PutinWarCriminal,StopPutinNOW,RussiaSanctions,BoycottRussia"
+     69 ClimateCrisis
+     50 "J6T,J6TraitorSaysWhat"
+     49 LongCovid
+     42 Ottawa
+     35 DowningStreetParties
+     31 Ukraine
+     29 N95
+     27 TEAMMOLLY
+     26 btc
+     25 Putin
+     21 "FBPE,FBPPR,FollowBackFriday"
+     19 TrumpGQPdeathKKKult
+     19 COVIDisAirborne
+     18 StandWithUkraine
+     18 RejoinEU
+     18 CrazyTown
+     17 VaccineSideEffects
+     16 ClimateEmergency
+     15 ToyFair2022
+     15 "FBPE,FollowBackFriday,TakeBackDemocracy"
+     15 FAFO
+     15 "bcpoli,bced"
+     14 ScottytheFailure
+     14 "COVID19BC,bcpoli"
+     13 "PutinHitler,StandWithUkraine"
+     13 MLKDay
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat downloaded_tweets_extend_nolf.tsv | grep "type=quoted" | cut -f4 | sort | uniq -c | sort -rnb | head -30
+     28 COVID19
+     25 HousingCrisis
+     23 Ukraine
+     20 JimCrowGOP
+     20 COVID19AB
+     20 "BDS,FreePalestine"
+     16 VaccineSideEffects
+     16 ClimateCrisis
+     15 Putin
+     15 "ableg,covid19ab"
+     14 TrumpGQPdeathKKKult
+     14 Antisemitism
+     13 RipCity
+     12 MaskItOrCasket
+     12 ChefsForUkraine
+     12 ableg
+     10 VITT
+     10 SocialismOrBarbarism
+     10 Russia
+     10 "ableg,COVID19AB"
+     10 "ableg,abed,covid19ab"
+      9 StandWithUkraine
+      9 MLKDay
+      9 "ableg,abed,COVID19AB"
+      8 "NAZI,UKRAINE"
+      8 LongCovid
+      8 FreePalestine
+      8 CrazyTown
+      8 AbolishPolice
+      7 TheView
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ exit
+
+Script done on 2022-09-25 18:34:44-04:00
