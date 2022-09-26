@@ -1,0 +1,26 @@
+Script started on 2022-09-26 14:01:07-04:00
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ mkdir CUSTOMERS
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ mkdir PRODUCTS
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ head -1 amazon_reviews_us_Books_v1_02.tsv
+marketplace	customer_id	review_id	product_id	product_parent	product_title	product_category	star_rating	helpful_votes	total_votes	vine	verified_purchase	review_headline	review_body	review_date
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat amazon_reviews_us_Books_v1_02.tsv | grep 50068216 > CUSTOMERS/50068216.txt
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat amazon_reviews_us_Books_v1_02.tsv | grep 51147790 > CUSTOMERS/51147790.txt
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat amazon_reviews_us_Books_v1_02.tsv | grep 43546353 > CUSTOMERS/43546353.txt
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat amazon_reviews_us_Books_v1_02.tsv | grep 0060392452 > PRODUCTS/0060392452.txt
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat amazon_reviews_us_Books_v1_02.tsv | grep 0312195516 > PRODUCTS/0312195516.txt
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat amazon_reviews_us_Books_v1_02.tsv | grep 1558743669 > PRODUCTS/1558743669.txt
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat CUSTOMERS/50068216.txt | cut -f9 | awk '{ total += $1 } END { print total/NR }'
+7.44534
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat CUSTOMERS/51147790.txt | cut -f9 | awk '{ total += $1 } END { print total/NR }'
+20.2179
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat CUSTOMERS/43546353.txt | cut -f9 | awk '{ total += $1 } END { print total/NR }'
+19.0623
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat PRODUCTS/0060392452.txt | cut -f9 | awk '{ total += $1 } END { print total/NR }'
+14.9132
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat PRODUCTS/0312195516.txt | cut -f9 | awk '{ total += $1 } END { print total/NR }'
+6.83627
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat PRODUCTS/1558743669.txt | cut -f9 | awk '{ total += $1 } END { print total/NR }'
+2.48021
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ exit
+
+Script done on 2022-09-26 14:02:06-04:00
