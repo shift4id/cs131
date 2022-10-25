@@ -1,0 +1,68 @@
+Use awk to get the entire text of the verified and unverified reviews
+awk -F'\t' '($12=="Y"){print}'
+
+Redirect the "verified" true reviews to a file "verified.txt".
+cat amazon_reviews_us_Books_v1_02.tsv | awk -F'\t' '($12=="Y"){print}' > verified.txt
+
+Then put the unverified reviews in another file "unverified.txt" using redirection.
+cat amazon_reviews_us_Books_v1_02.tsv | awk -F'\t' '($12!="Y"){print}' > unverified.txt
+
+Find the 10 most frequent words in the review_body of the verified reviews, then find the 10 most frequent words in the review_body of the unverified reviews. Note: If this is taking too long for the entire dataset, it is sufficient to do it just for 100 reviews so you get an idea.
+cat verified.txt | tr -c '[:alnum:]' '[\n*]' | sort | uniq -c | sort -nr | head -11
+8902065 
+2026257 the
+1248727 of
+1223552 and
+1058958 to
+ 970926 a
+ 692670 is
+ 670466 I
+ 629980 in
+ 523203 book
+ 471243 that
+
+head -100 unverified.txt | tr -c '[:alnum:]' '[\n*]' | sort | uniq -c | sort -nr | head -11
+   4247
+    892 the
+    544 of
+    536 and
+    474 to
+    398 a
+    317 is
+    276 in
+    254 I
+    248 br
+    241 that
+
+Script started on 2022-10-25 01:53:04-04:00
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat amazon_reviews_us_Books_v1_02.tsv | awk -F'\t' '($12=="Y"){print}' > verified.txt
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat amazon_reviews_us_Books_v1_02.tsv | awk -F'\t' '($12!="Y"){print}' > unverified.txt
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat verified.txt | tr -c '[:alnum:]' '[\n*]' | sort | uniq -c | sort -nr | head -11
+8902065 
+2026257 the
+1248727 of
+1223552 and
+1058958 to
+ 970926 a
+ 692670 is
+ 670466 I
+ 629980 in
+ 523203 book
+ 471243 that
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat unverified.txt | tr -c '[:alnum:]' '[\n*]' | sort | uniq -c | sort -nr | head -11
+^C
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ head -100 unverified.txt | tr -c '[:alnum:]' '[\n*]' | sort | uniq -c | sort -nr | head -11
+   4247 
+    892 the
+    544 of
+    536 and
+    474 to
+    398 a
+    317 is
+    276 in
+    254 I
+    248 br
+    241 that
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ exit
+
+Script done on 2022-10-25 02:04:40-04:00
