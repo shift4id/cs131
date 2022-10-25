@@ -1,3 +1,30 @@
+Select your favorite product. You can work with the one product file you used in the last worksheet #6.
+ 
+Examine the review_body column in the amazon reviews file for a product of your choice.
+Remove all commas, dots, semicolons, and these stopwords:  and or if in it.
+Remove all html tags, such as <br />
+You can search for <.../> with sed.
+Keep only the review_body column and output to a new file.
+
+commands:
+cat PRODUCTS/1558743669.txt | cut -f14 | sed -e 's/\(,\|\.\|;\)//g' -e 's/\<\(and\|or\|if\|in\|it\)\>//gi' -e 's/<[^>]*>//g' -e 's/  / /gi' > PRODUCTS/1558743669_body_cleaned.txt
+
+// open file
+cat PRODUCTS/1558743669.txt
+// keep only review_body
+| cut -f14
+// call sed
+| sed 
+// remove punctuation
+-e 's/\(,\|\.\|;\)//g' 
+// remove words
+-e 's/\<\(and\|or\|if\|in\|it\)\>//gi' 
+// remove html tags
+-e 's/<[^>]*>//g' -e 's/  / /gi'
+// output to new file
+> PRODUCTS/1558743669_body_cleaned.txt
+
+
 Script started on 2022-10-25 01:25:15-04:00
 ]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat PRODUCTS/1558743669.txt | cut -f14 | sed -e 's/\(,\|\.\|;\)//g' -e 's/\<\(and\|or\|if\|in\|it\)\>//gi' -e 's/<[^>]*>//g' -e 's/  / /gi' > PRODUCTS/1558743669_body_cleaned.txt
 ]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ head -3 PRODUCTS/1558743669_body_cleaned.txt
