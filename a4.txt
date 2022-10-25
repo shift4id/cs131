@@ -1,0 +1,87 @@
+0) 
+cat downloaded_tweets_extend_nolf2.tsv | cut -f5 | grep "retweeted" | sed 's/^.* id=//g' | sed 's/ type=retweeted.//g' > retweeted_ids
+
+awk -F'\t' 'NR==FNR {a[$1]=$0; next} {print a[$1]}' downloaded_tweets_extend_original_nolf2.tsv retweeted_ids | grep . | cut -f2 |  sort | uniq -c | sort -rnb | head -10
+
+1)
+tail -n+2 downloaded_tweets_extend_nolf2.tsv | awk -F'\t' '($5~/retweeted/) {match($5, /[0-9]+/, a); print a[0]"\t"$2}' > retweets_tweetid.tsv
+
+join -t"\t" <(sort retweets_tweetid.tsv) <(sort downloaded_tweets_extend_original_nolf2.tsv)
+
+awk -F'\t' 'NR==FNR {a[$1]=$2; next} {print a[$1]"\t"$2}' downloaded_tweets_extend_original_nolf2.tsv retweets_tweetid.tsv | awk '($1!=""&&$2!="") {print $0}' > retweets.tsv
+
+2)
+cat retweets.tsv | cut -f1 | uniq -c | sort -n -t' ' -k1 | awk '($1>=3) {print $2}' > temp
+grep -iFf temp retweets.tsv > clusters.tsv
+
+3)
+/etc/gnuplot-5.4.4/src/gnuplot
+
+set terminal svg
+set output 'clusters.svg'
+binwidth=1
+bin(x,width)=width*floor(x/width)
+plot '< cut -f1 clusters.tsv | uniq -c' using (bin($1,binwidth)):(1.0) smooth freq with boxes
+
+4)
+grep -iFf retweeted_ids downloaded_tweets_extend_original_nolf2.tsv | cut -f4 | sort | uniq -c | sort -rnb | head -30 | awk '{print $2}' > t30_hashtags_subset.txt
+cat downloaded_tweets_extend_original_nolf2.tsv | cut -f4 | sort | uniq -c | sort -rnb | head -30 | awk '{print $2}' > t30_hashtags.txt
+grep -ivFf t30_hashtags.txt t30_hashtags_subset.txt
+
+There is no difference between the hashtags for the full dataset and the subset
+
+5)
+n/a
+
+6) Describe in a few sentences (2-3 sentences) what the networks you plotted show at the bottom of a4.txt.
+I plotted a network showing which users retweeted/replied to other users and it shows which users are related to each other through retweets or replies. It helps illustrate communities within twitter and which users fall into which communities and how much they interact within those communities.	Script started on 2022-10-24 21:24:53-04:00
+
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat downloaded_tweets_extend_nolf2.tsv | cut -f5 | grep "retweeted" | sed 's/^.* id=//g' | sed 's/ type=retweeted.//g' > retweeted_ids
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ awk -F'\t' 'NR==FNR {a[$1]=$0; next} {print a[$1]}' downloaded_tweets_extend_original_nolf2.tsv retweeted_ids | grep . | cut -f2 |  sort | uniq -c | sort -rnb | head -10
+   1076 18831926
+    438 1891490382
+    362 163018653
+    323 1495480590572961792
+    316 1219232377605644289
+    255 1231514832479948802
+    208 42836999
+    199 1229752606714728454
+    193 380648579
+    179 80802900
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ tail -n+2 downloaded_tweets_extend_nolf2.tsv | awk -F'\t' '($5~/retweeted/) {match($5, /[0-9]+/, a); print a[0]"\t"$2}' > retweets_tweetid.tsv
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ awk -F'\t' 'NR==FNR {a[$1]=$2; next} {print a[$1]"\t"$2}' downloaded_tweets_extend_original_nolf2.tsv retweets_tweetid.tsv | awk '($1!=""&&$2!="") {print $0}' > retweets.tsv
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat retweets.tsv | cut -f1 | uniq -c | sort -n -t' ' -k1 | awk '($1>=3) {print $2}' > temp
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ grep -iFf temp retweets.tsv > clusters.tsv
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ /etc/gnuplot-5.4.4/src/gnuplot
+
+	G N U P L O T
+	Version 5.4 patchlevel 4    last modified 2022-07-10 
+
+	Copyright (C) 1986-1993, 1998, 2004, 2007-2022
+	Thomas Williams, Colin Kelley and many others
+
+	gnuplot home:     http://www.gnuplot.info
+	faq, bugs, etc:   type "help FAQ"
+	immediate help:   type "help"  (plot window: hit 'h')
+
+Terminal type is now 'unknown'
+gnuplot> set terminal svg
+
+Terminal type is now 'svg'
+Options are 'size 600,480 fixed enhanced font 'Arial,12' butt dashlength 1.0 '
+gnuplot> set output 'clusters.svg'
+gnuplot> binwidth=1
+gnuplot> bin(x,width)=width*floor(x/width)
+gnuplot> plot '< cut -f1 clusters.tsv | uniq -c' using (bin($1,binwidth)):(1.0) smooth freq with boxes
+gnuplot> grep -iFf retweeted_ids downloaded_tweets_extend_original_nolf2.tsv | cut -f4 | sort | uniq -c | sort -rnb | head -30 | awk '{print $2}' > t30_hashtags_subset.txt
+         ^
+         invalid command
+
+gnuplot> c  quit
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ grep -iFf retweeted_ids downloaded_tweets_extend_original_nolf2.tsv | cut -f4 | sort | uniq -c | sort -rnb | head -30 | awk '{print $2}' > t30_hashtags_subset.txt
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat downloaded_tweets_extend_original_nolf2.tsv | cut -f4 | sort | uniq -c | sort -rnb | head -30 | awk '{print $2}' > t30_hashtags.txt
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ grep -ivFf t30_hashtags.txt t30_hashtags_subset.txt
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ hio[Kstory > s[Kcmds.log
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ nano [K[K[K[K[Kexit
+
+Script done on 2022-10-24 21:26:57-04:00
