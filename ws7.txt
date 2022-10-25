@@ -1,0 +1,9 @@
+Script started on 2022-10-25 01:25:15-04:00
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat PRODUCTS/1558743669.txt | cut -f14 | sed -e 's/\(,\|\.\|;\)//g' -e 's/\<\(and\|or\|if\|in\|it\)\>//gi' -e 's/<[^>]*>//g' -e 's/  / /gi' > PRODUCTS/1558743669_body_cleaned.txt
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ head -3 PRODUCTS/1558743669_body_cleaned.txt
+This is the most moving book that I have ever read  is sad to see how some children get treated by their parents  is a shame how mean his mother is the things that she does to him One time she was a drunken rage grabbed his arm held over the gas burning stove Then she tried to lay him on top of but he fought back long enough where she had to stop That is just some of things that she does just to hurt him This book shows me how good my life is how I should appriciate more  hurts me to think that their are many other children who are abused just as he was This book might make you sad but teaches you a lesson on how hard his life was he was able to make through so everybody else should have the determination that he did to live
+This book was hard to readWhat Dave Pelzer indured as a child is trully heartbreakingThe fact that he was able to go on with his life is amazing
+This is a very profound book that will take you amongst the depths of the human psyche open many new perspectives (although most certainly not the most pleasant) Through a heart breaking story a will to live you will also begin to appreciate the many things we take advantage of life begin to understand the capabilities we have inside of us to not only live but to also succeed
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ exit
+
+Script done on 2022-10-25 01:25:47-04:00
