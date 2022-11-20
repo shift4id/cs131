@@ -1,0 +1,60 @@
+Script started on 2022-11-19 19:54:57-05:00
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ grep replied_to downloaded_tweets_extend_original_nolf2.tsv > replied_tweets_og.tsv
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ grep replied_to downloaded_tweets_extend_nolf2.tsv > replied_tweets.tsv
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ awk -F "\t" '($2 != $6) {print $6}' replied_tweets_og.tsv | sort | uniq -c | sort -n -k 1 | awk '($1 >=3) {print $2}' > reply_influencers.txt
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ awk -F "\t" '($2 != $6) {print $6}' replied_tweets.tsv | sort | uniq -c | sort -n -k 1 | awk '($1 >=3) {print $2}' >> reply_influencers.txt
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ mkdir infl_replies
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ for INFL in `cat reply_influencers.txt` ; do grep $INFL replied_tweets_og.tsv replied_tweets.tsv | awk -F "\t"  '{print $4}' | tr "," "\n" | sed "s/\"//g" > infl_replies/$INFL.hashtags ; done
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat downloaded_tweets_extend_nolf2.tsv | cut -f5 | grep "retweeted" | sed 's/^.* id=//g' | sed 's/ type=retweeted.//g' > retweeted_ids
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ grep -iFf retweeted_ids downloaded_tweets_extend_original_nolf2.tsv > retweeted_tweets.tsv
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ awk -F "\t" '($2 != $6) {print $6}' retweeted_tweets.tsv | sort | uniq -c | sort -n -k 1 | awk '($1 >=3) {print $2}' > rt_influencers.txt
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ mkdir infl_rts
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ for INFL in `cat rt_influencers.txt` ; do grep $INFL retweeted_tweets.tsv | awk -F "\t"  '{print $4}' | tr "," "\n" | sed "s/\"//g" > infl_rts/$INFL.hashtags ; done
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ ls infl_replies | wc -l
+368
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ ls infl_rts | wc -l
+135
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cd infl_replies
+]0;siddharth@sjsu:~/cs131/infl_replies[siddharth@sjsu infl_replies]$ for FILE in `ls` ; 
+> do 
+> for HASHTAG in `cat $FILE`; 
+> do count_H_in_C=`grep $HASHTAG $FILE | wc -l` ; 
+> count_hashtags_in_C=`cat $FILE | wc -l` ;
+> count_H_entire_dataset=`grep $HASHTAG ../replied_tweets_og.tsv | wc -l`;
+> count_hashtags_entire_dataset=3928; 
+> if [[ "$count_hashtags_in_C" -eq 0 ]] ; then 
+> continue 
+> fi
+> frequency_H_in_C=`echo "scale=3;$count_H_in_C / $count_hashtags_in_C" | bc -l`;
+> frequency_H_overall=`echo "scale=3;$count_H_entire_dataset / $count_hashtags_entire_dataset" | bc -l` ;
+> if [[ "$frequency_H_overall" == '0' ]] ; then
+> continue 
+> fi
+> relative_frequency_H_C=`echo "scale=3;$frequency_H_in_C / $frequency_H_overall" | bc -l` ;
+> echo "$HASHTAG $FILE $relative_frequency_H_C $frequency_H_IN_C $frequency_H_overall $count_H_in_C $count_hashtags_in_C $count_H_entire_dataset $count_hashtags_entire_dataset" ; 
+> done ; 
+> done > ../replies_hashtag_freqs.tsv
+]0;siddharth@sjsu:~/cs131/infl_replies[siddharth@sjsu infl_replies]$ cd ../infl_rts
+]0;siddharth@sjsu:~/cs131/infl_rts[siddharth@sjsu infl_rts]$ for FILE in `ls` ; 
+> do 
+> for HASHTAG in `cat $FILE`; 
+> do count_H_in_C=`grep $HASHTAG $FILE | wc -l` ; 
+> count_hashtags_in_C=`cat $FILE | wc -l` ;
+> count_H_entire_dataset=`grep $HASHTAG ../retweeted_tweets.tsv | wc -l`;
+> count_hashtags_entire_dataset=3928; 
+> if [[ "$count_hashtags_in_C" -eq 0 ]] ; then 
+> continue 
+> fi
+> frequency_H_in_C=`echo "scale=3;$count_H_in_C / $count_hashtags_in_C" | bc -l`;
+> frequency_H_overall=`echo "scale=3;$count_H_entire_dataset / $count_hashtags_entire_dataset" | bc -l` ;
+> if [[ "$frequency_H_overall" == '0' ]] ; then
+> continue 
+> fi
+> relative_frequency_H_C=`echo "scale=3;$frequency_H_in_C / $frequency_H_overall" | bc -l` ;
+> echo "$HASHTAG $FILE $relative_frequency_H_C $frequency_H_IN_C $frequency_H_overall $count_H_in_C $count_hashtags_in_C $count_H_entire_dataset $count_hashtags_entire_dataset" ; 
+> done ; 
+> done > ../retweets_hashtag_freqs.tsv
+]0;siddharth@sjsu:~/cs131/infl_rts[siddharth@sjsu infl_rts]$ cd ..
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ exit
+
+Script done on 2022-11-19 20:00:16-05:00
