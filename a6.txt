@@ -1,0 +1,71 @@
+// REMOVE BOTS
+grep replied_to downloaded_tweets_extend_nolf2.tsv | awk -F'\t' '($2 != $6)' > replied.NOBOTS.tsv
+grep replied_to downloaded_tweets_extend_original_nolf2.tsv | awk -F'\t' '($2 != $6)' > replied_og.NOBOTS.tsv
+
+// GET ALL USERS THAT RECEIVED REPLIES
+cat replied.NOBOTS.tsv replied_og.NOBOTS.tsv | cut -f6 | sort | uniq -c | sort -nr -k1 > received_replies.txt
+
+// FILTER OUT USERS THAT RECEIVED 3 OR MORE REPLIES
+cat received_replies.txt | awk '($1 >=3)' > influencers.txt
+
+// QUESTION #1, GET NUMBER OF INFLUENTIAL USERS
+cat influencers.txt | wc -l
+
+// GET ALL USERS THAT GAVE REPLIES
+cat replied.NOBOTS.tsv replied_og.NOBOTS.tsv | cut -f2 | sort | uniq -c | sort -nr -k1 | awk '{ print $2 }' > repliers.txt
+
+// QUESTION #2, GET NUMBER OF USERS LEAVING REPLIES
+cat repliers.txt | wc -l
+
+// QUESTION #3, GET NUMBER OF USERS THAT LEFT REPLIES AND RECEIVED REPLIES
+grep -iFf repliers.txt received_replies.txt | wc -l
+
+// MAKE A TEMP FILE WITH RELEVANT COLUMNS 
+cat replied.NOBOTS.tsv replied_og.NOBOTS.tsv | cut -f3,6,8 > temp
+
+// QUESTION #4, GET DATES WHEN MOST REPLIES HAPPENED
+grep -iFf repliers.txt temp | awk '{ print $1 }' | sort | uniq -c | sort -nr -k 1 | head
+
+// QUESTION #5, GET TOP WORDS NOT INCLUDING STOPWORDS
+cat temp | cut -f3 | sed -e 's/\(,\|\.\|;\)//g' -e 's/\<\(and\|or\|if\|in\|it\)\>//gi' -e 's/<[^>]*>//g' -e 's/  / /gi' | tr -c '[:alnum:]' '[\n*]' | sort | uniq -c | sort -nr | head -11
+
+
+Script started on 2022-12-06 19:06:57-05:00
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ grep replied_to downloaded_tweets_extend_nolf2.tsv | awk -F'\t' '($2 != $6)' > replied.NOBOTS.tsv
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ grep replied_to downloaded_tweets_extend_original_nolf2.tsv | awk -F'\t' '($2 != $6)' > replied_og.NOBOTS.tsv
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat replied.NOBOTS.tsv replied_og.NOBOTS.tsv | cut -f6 | sort | uniq -c | sort -nr -k1 > received_replies.txt
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat received_replies.txt | awk '($1 >=3)' > influencers.txt
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat influencers.txt | wc -l
+465
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat replied.NOBOTS.tsv replied_og.NOBOTS.tsv | cut -f2 | sort | uniq -c | sort -nr -k1 | awk '{ print $2 }' > repliers.txt
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat repliers.txt | wc -l
+1667
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ grep -iFf repliers.txt received_replies.txt | wc -l
+164
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat replied.NOBOTS.tsv replied_og.NOBOTS.tsv | cut -f3,6,8 > temp
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ grep -iFf repliers.txt temp | awk '{ print $1 }' | sort | uniq -c | sort -nr -k 1 | head
+     15 2022-04-08
+     12 2022-04-09
+      9 2022-03-05
+      8 2022-04-05
+      8 2022-02-27
+      8 2022-02-12
+      7 2022-04-26
+      7 2022-04-22
+      7 2022-04-12
+      7 2022-03-30
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ cat temp | cut -f3 | sed -e 's/\(,\|\.\|;\)//g' -e 's/\<\(and\|or\|if\|in\|it\)\>//gi' -e 's/<[^>]*>//g' -e 's/  / /gi' | tr -c '[:alnum:]' '[\n*]' | sort | uniq -c | sort -nr | head -11
+  75083 
+   3994 the
+   3398 to
+   3201 a
+   2084 of
+   2026 is
+   1411 for
+   1407 you
+   1279 s
+   1275 tco
+   1275 https
+]0;siddharth@sjsu:~/cs131[siddharth@sjsu cs131]$ exit
+
+Script done on 2022-12-06 19:07:51-05:00

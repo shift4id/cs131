@@ -1,0 +1,10 @@
+   75  script a6.txt
+   76  history > cmds.log
+   77  fgrep -vwf /usr/share/groff/current/eign
+   78  cat /usr/share/groff/current/eign
+   79  nano a6.txt
+   80  git checkout --orphan a6
+   81  git rm rf .
+   82  git rm -rf .
+   83  ls
+   84  history > cmds.log
